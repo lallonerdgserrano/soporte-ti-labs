@@ -1,4 +1,4 @@
-# Diagnóstico básico de conectividad
+# Diagnóstico básico de conectividad en entorno VMware
 
 **Estado:** En desarrollo  
 **Área:** Soporte TI / Help Desk / Redes básicas  
@@ -8,8 +8,10 @@
 
 ## Escenario
 
-Un usuario reporta que su equipo tiene problemas para conectarse a internet o acceder a recursos de red.  
-El objetivo del laboratorio es aplicar una secuencia básica de diagnóstico para identificar si el problema está relacionado con configuración IP, conectividad local, salida a internet o resolución DNS.
+Se utiliza una máquina virtual Windows en VMware como entorno controlado de laboratorio para simular un caso básico de soporte técnico.
+
+Un usuario reporta problemas de conectividad a internet o dificultad para acceder a recursos de red.  
+El objetivo es aplicar una secuencia básica de diagnóstico para revisar configuración IP, conectividad local, salida a internet y resolución DNS sin exponer información sensible de una red real.
 
 ---
 
