@@ -112,7 +112,7 @@ Se validó salida a internet usando una dirección IP pública.
 ping 8.8.8.8
 ```
 
-![Ping a internet](./screenshots/09-ping-internet-8-8-8.png)
+![Ping a internet](./screenshots/09-ping-internet-8-8-8-8.png)
 
 ---
 
