@@ -36,7 +36,7 @@ Demostrar habilidades prácticas en soporte TI mediante laboratorios documentado
 ## Laboratorios iniciales
 
 - [Diagnóstico básico de conectividad](./diagnostico-basico-conectividad) *(completado)*
-- Verificación de DNS *(planificado)*
+- [Corrección de fallo DNS en Windows](verificacion-dns/README.md) *(completado)*
 - Revisión de configuración IP *(planificado)*
 - Prueba de conectividad entre equipos *(planificado)*
 - Documentación de ticket técnico *(planificado)*
