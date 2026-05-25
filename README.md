@@ -43,18 +43,6 @@ Demostrar habilidades prácticas en soporte TI mediante laboratorios documentado
 
 ---
 
-## Estructura recomendada para cada laboratorio
-
-Cada laboratorio tendrá una carpeta propia con esta estructura:
-
-```text
-nombre-del-laboratorio/
-├── README.md
-├── screenshots/
-├── commands/
-└── notes/
-```
-
 ---
 
 ## Propósito profesional
