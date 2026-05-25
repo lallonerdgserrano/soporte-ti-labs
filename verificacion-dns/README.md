@@ -93,4 +93,4 @@ Después de corregir la configuración DNS y limpiar la caché local, el equipo 
 
 Este laboratorio demuestra un proceso básico de diagnóstico y corrección de DNS en Windows.
 
-El procedimiento permite diferenciar entre un problema de conectividad general y un problema específico de resolución de nombres, usando pruebas comunes de soporte técnico junior.
+El procedimiento permite diferenciar entre un problema de conectividad general y un problema específico de resolución de nombres, usando pruebas comunes de soporte técnico.
