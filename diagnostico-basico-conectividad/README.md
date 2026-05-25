@@ -144,7 +144,7 @@ El primer salto respondió correctamente desde el gateway NAT de VMware:
 
 Los saltos posteriores mostraron tiempo de espera agotado, lo cual puede deberse a filtrado ICMP/TTL en la ruta. Como las pruebas de `ping 8.8.8.8` y `nslookup google.com` fueron exitosas, se confirma que la conectividad a internet y la resolución DNS funcionaban correctamente.
 
-![tracert 8.8.8.8](./screenshots/11-tracert-8-8-8.png)
+![tracert 8.8.8.8](./screenshots/11-tracert-8-8-8-8.png)
 
 ---
 
