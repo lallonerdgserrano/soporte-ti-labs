@@ -35,7 +35,7 @@ Demostrar habilidades prácticas en soporte TI mediante laboratorios documentado
 
 ## Laboratorios iniciales
 
-- Diagnóstico básico de conectividad *(planificado)*
+- [Diagnóstico básico de conectividad](./diagnostico-basico-conectividad) *(completado)*
 - Verificación de DNS *(planificado)*
 - Revisión de configuración IP *(planificado)*
 - Prueba de conectividad entre equipos *(planificado)*
