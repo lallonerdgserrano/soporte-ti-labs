@@ -38,7 +38,7 @@ Demostrar habilidades prácticas en soporte TI mediante laboratorios documentado
 - [Diagnóstico básico de conectividad](./diagnostico-basico-conectividad) ✅
 - [Corrección de fallo DNS en Windows](verificacion-dns/README.md) ✅
 - [Revisión de configuración IP](revision-configuracion-ip/) ✅
-- Prueba de conectividad entre equipos *(planificado)*
+- [Prueba de conectividad entre equipos](conectividad-entre-equipos/) ✅
 - Documentación de ticket técnico *(planificado)*
 
 ---
