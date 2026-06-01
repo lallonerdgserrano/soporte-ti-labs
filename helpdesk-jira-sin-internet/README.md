@@ -20,6 +20,20 @@ Un usuario contacta al área de soporte TI por medio de llamada telefónica e in
 
 Durante la revisión inicial se confirma que otros compañeros sí tienen conexión, por lo que el incidente parece afectar únicamente a ese equipo.
 
+## Problema reportado
+
+El usuario reporta que no tiene acceso a Internet desde su computadora de trabajo. El caso afecta únicamente a su equipo, ya que otros compañeros sí cuentan con conexión.
+
+## Información obtenida durante la llamada
+
+Durante la llamada se confirma la siguiente información:
+
+- El problema inició al encender el equipo.
+- El usuario no puede acceder a Internet.
+- Otros compañeros sí tienen conexión.
+- El equipo afectado está conectado por cable de red.
+- El incidente afecta únicamente a este usuario.
+
 ## Registro del ticket
 
 El caso se registró en Jira Service Management como un incidente de soporte.
@@ -69,6 +83,12 @@ Se respondió al usuario indicando que el problema fue corregido y se dejó una 
 El ticket quedó en estado completado dentro de Jira Service Management.
 
 ![Ticket cerrado](img/07-ticket-cerrado-caso-resuelto.png)
+
+## Valor laboral demostrado
+
+Este laboratorio demuestra habilidades básicas de Soporte TI / Help Desk, incluyendo registro de incidentes en una herramienta de tickets, clasificación por impacto y urgencia, comunicación con el usuario, diagnóstico de conectividad en Windows, corrección de una configuración local y cierre documentado del caso.
+
+También demuestra uso inicial de Jira Service Management como herramienta de gestión de tickets, algo útil para entornos reales de Service Desk.
 
 ## Conclusión
 
