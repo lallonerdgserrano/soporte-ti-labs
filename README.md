@@ -43,6 +43,7 @@ Demostrar habilidades prácticas en soporte TI mediante laboratorios documentado
 - [Prueba de conectividad entre equipos](conectividad-entre-equipos/) ✅
 - [Caso Help Desk: navegador sin acceso por proxy mal configurado](caso-helpdesk-proxy/) ✅
 - [Caso Help Desk en Jira Service Management: usuario sin acceso a Internet](helpdesk-jira-sin-internet/) ✅
+- [Caso Help Desk: Internet intermitente con diagnóstico y escalamiento](caso-helpdesk-internet-intermitente/) ✅
 
 ---
 
