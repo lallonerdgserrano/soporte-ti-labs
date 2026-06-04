@@ -2,154 +2,189 @@
 
 ## Objetivo
 
-Documentar el proceso de diagnóstico de una falla de conectividad a Internet que afectaba múltiples dispositivos, identificar el origen probable del problema mediante pruebas básicas de red y escalar el caso al responsable del servicio cuando la incidencia se determinó fuera del alcance del usuario.
+Diagnosticar una falla de conectividad a Internet que afectaba múltiples dispositivos de una red residencial, identificar si el problema se encontraba en el equipo local o en la infraestructura de red y documentar el proceso de escalamiento hasta la resolución del incidente.
 
 ---
 
 ## Escenario
 
-Un usuario reportó que la conexión a Internet presentaba un comportamiento inestable.
+Un usuario reportó que la conexión a Internet presentaba un comportamiento anormal.
 
-Los síntomas observados fueron:
+Los síntomas reportados fueron:
 
 - Internet lento e intermitente.
+- Desconexiones frecuentes.
 - Mensaje "Conectado, sin Internet".
 - Páginas web que dejaban de cargar temporalmente.
-- Problema presente en computadora, teléfono móvil y televisor.
-- La incidencia comenzó entre un día y otro sin cambios conocidos por parte del usuario.
+- Error de navegación durante las caídas.
+- El problema afectaba computadora, teléfono móvil y televisor.
 
-La conexión se realizaba mediante Wi-Fi.
-
----
-
-## Información recopilada
-
-### Preguntas realizadas al usuario
-
-1. ¿Desde cuándo ocurre el problema?
-2. ¿Afecta a un solo dispositivo o a varios?
-3. ¿Aparece algún mensaje de error?
-4. ¿La conexión es por cable o Wi-Fi?
-5. ¿Se realizaron cambios antes de que comenzara la falla?
-
-### Respuestas obtenidas
-
-- El problema comenzó recientemente.
-- Afecta a varios dispositivos.
-- Aparece el mensaje "Conectado, sin Internet".
-- La conexión es por Wi-Fi.
-- No se reportaron cambios previos.
+Debido a que la incidencia afectaba varios dispositivos al mismo tiempo, se descartó inicialmente que el problema estuviera limitado a una sola computadora.
 
 ---
 
 ## Entorno
 
 - Sistema operativo: Windows 11
-- Conexión: Wi-Fi
-- Adaptador de red: Marvell AVASTAR Wireless-AC Network Controller
-- Dirección IPv4: 192.168.0.213
-- Gateway: 192.168.0.1
-- DNS: 192.168.0.1
+- Conexión: Wi-Fi residencial
+- Adaptador inalámbrico: Marvell AVASTAR Wireless-AC Network Controller
+- Dirección IPv4: Oculta por privacidad
+- Máscara de subred: Oculta por privacidad
+- Gateway predeterminado: Oculto por privacidad
+- Servidor DHCP: Oculto por privacidad
+- Servidor DNS: Oculto por privacidad
+
+**Nota:** Los parámetros específicos de direccionamiento fueron anonimizados por motivos de privacidad y no afectan el análisis técnico del caso.
 
 ---
 
-## Evidencias principales
+## Problema reportado
 
-### Configuración IP obtenida correctamente
+El usuario indicó que la conexión funcionaba durante algunos minutos y posteriormente comenzaba a fallar.
 
-![Configuración IP](img/01-ipconfig-all.png)
+Durante la falla se observaban los siguientes comportamientos:
 
-La estación recibió una dirección IP válida mediante DHCP.
-
----
-
-### Estado de conexión Wi-Fi
-
-![WiFi sin Internet](img/02-wifi-conectado-sin-internet.png)
-
-Windows detectaba la conexión inalámbrica, pero indicaba ausencia de acceso estable a Internet.
+- El navegador no lograba abrir páginas web.
+- Algunas páginas mostraban errores de resolución.
+- Windows mostraba el estado "Conectado, sin Internet".
+- La conexión regresaba por momentos y volvía a fallar poco después.
 
 ---
 
-### Ping inicial al gateway
+## Información recopilada
 
-![Ping gateway](img/03-ping-gateway-perdida-paquetes.png)
+### Preguntas realizadas
 
-Se observaron pérdidas importantes de paquetes hacia el gateway local.
+1. ¿Desde cuándo ocurre el problema?
+2. ¿Afecta únicamente a una computadora o a varios dispositivos?
+3. ¿Aparece algún mensaje de error?
+4. ¿La conexión es por cable o Wi-Fi?
+5. ¿Se realizaron cambios antes de que iniciara la falla?
 
----
+### Respuestas obtenidas
 
-### Ping inicial a Internet
-
-![Ping Internet](img/04-ping-internet-perdida-paquetes.png)
-
-La conectividad hacia Internet también presentaba pérdida de paquetes y latencia elevada.
-
----
-
-### Error de navegación
-
-![Error DNS](img/05-error-navegador-dns.png)
-
-Durante la incidencia se observó un error de resolución de nombres.
+- El problema comenzó recientemente.
+- Afecta varios dispositivos.
+- Aparece el mensaje "Conectado, sin Internet".
+- La conexión se realiza mediante Wi-Fi.
+- No se reportaron cambios previos.
 
 ---
 
-### Tracert
+## Diagnóstico inicial
 
-![Tracert](img/06-tracert-inconsistente.png)
+Se verificó la configuración de red mediante:
 
-La ruta presentó respuestas inconsistentes y múltiples tiempos de espera agotados.
+```cmd
+ipconfig /all
+```
 
----
+### Resultado
 
-## Pruebas realizadas
+La estación obtuvo correctamente:
 
-### Verificación de configuración IP
-
-Se confirmó:
-
-- Dirección IP válida.
+- Dirección IP privada válida.
 - Gateway configurado.
-- DHCP funcional.
 - DNS configurado.
+- Concesión DHCP válida.
 
-No se observaron errores de configuración local.
+No se encontraron errores de configuración local.
 
 ---
 
-### Ping continuo al gateway
+## Prueba de conectividad al gateway
 
 Se ejecutó:
 
 ```cmd
-ping -t 192.168.0.1
+ping 192.168.X.1
 ```
 
-Resultados observados:
+Resultado observado:
 
-- Pérdida masiva de paquetes.
-- Latencias variables.
-- Respuestas intermitentes.
+```text
+Respuesta desde 192.168.X.1
+Tiempo = 3 ms
 
-Evidencias:
+Respuesta desde 192.168.X.1
+Tiempo = 5 ms
 
-![Gateway continuo 1](img/07-ping-gateway-continuo-parte-1.png)
+Tiempo de espera agotado para esta solicitud
 
-![Gateway continuo 2](img/07-ping-gateway-continuo-parte-2.png)
+Respuesta desde 192.168.X.1
+Tiempo = 2651 ms
 
-![Gateway continuo 3](img/07-ping-gateway-continuo-parte-3.png)
+Tiempo de espera agotado para esta solicitud
+```
 
-Resultado destacado:
-
-- 107 paquetes enviados.
-- 30 recibidos.
-- 77 perdidos.
-- 71% de pérdida.
+La pérdida de paquetes y las latencias elevadas indicaban una comunicación inestable incluso dentro de la red local.
 
 ---
 
-### Ping continuo a Internet antes de la corrección
+## Prueba continua al gateway
+
+Se ejecutó:
+
+```cmd
+ping -t 192.168.X.1
+```
+
+Resultado final:
+
+```text
+Paquetes: enviados = 107
+recibidos = 30
+perdidos = 77
+
+71% de pérdida
+```
+
+Latencias observadas:
+
+```text
+3 ms
+5 ms
+10 ms
+2651 ms
+2916 ms
+3252 ms
+3371 ms
+```
+
+### Análisis
+
+La pérdida ocurría directamente contra el gateway local.
+
+Esto indicó que el problema probablemente se encontraba dentro de la infraestructura local de red, antes de salir hacia Internet.
+
+---
+
+## Prueba de conectividad a Internet
+
+Se ejecutó:
+
+```cmd
+ping 8.8.8.8
+```
+
+Resultado observado:
+
+```text
+Respuesta desde 8.8.8.8
+Tiempo = 83 ms
+
+Respuesta desde 8.8.8.8
+Tiempo = 79 ms
+
+Tiempo de espera agotado para esta solicitud
+
+Respuesta desde 8.8.8.8
+Tiempo = 2695 ms
+```
+
+---
+
+## Prueba continua a Internet
 
 Se ejecutó:
 
@@ -157,26 +192,66 @@ Se ejecutó:
 ping -t 8.8.8.8
 ```
 
-Evidencias:
+Resultado final:
 
-![Internet antes 1](img/08-ping-internet-antes-de-correccion-parte-1.png)
+```text
+Paquetes: enviados = 229
+recibidos = 131
+perdidos = 98
 
-![Internet antes 2](img/08-ping-internet-antes-de-correccion-parte-2.png)
+42% de pérdida
+```
 
-![Internet antes 3](img/08-ping-internet-antes-de-correccion-parte-3.png)
+También se observaron múltiples errores:
 
-![Internet antes 4](img/08-ping-internet-antes-de-correccion-parte-4.png)
+```text
+Tiempo de espera agotado para esta solicitud
 
-![Internet antes 5](img/08-ping-internet-antes-de-correccion-parte-5.png)
+PING: error en la transmisión. Error general.
+```
 
-![Internet antes 6](img/08-ping-internet-antes-de-correccion-parte-6.png)
+### Análisis
 
-Resultado destacado:
+La conectividad hacia Internet también era inestable.
 
-- 229 paquetes enviados.
-- 131 recibidos.
-- 98 perdidos.
-- 42% de pérdida.
+Sin embargo, debido a que el gateway ya presentaba una pérdida de paquetes del 71%, se determinó que el origen principal de la falla se encontraba dentro de la infraestructura local de red.
+
+---
+
+## Error de navegación observado
+
+Durante la incidencia el navegador mostró errores similares a:
+
+```text
+ERR_NAME_NOT_RESOLVED
+
+No se encontró la dirección IP del servidor
+```
+
+### Análisis
+
+Aunque inicialmente parecía un problema DNS, las pruebas posteriores demostraron que la pérdida de conectividad ocurría antes de llegar a los servidores DNS.
+
+Por lo tanto, el error DNS fue considerado una consecuencia de la falla principal y no la causa raíz.
+
+---
+
+## Tracert
+
+Se ejecutó:
+
+```cmd
+tracert 8.8.8.8
+```
+
+Resultado observado:
+
+```text
+Tiempo de espera agotado para esta solicitud
+Tiempo de espera agotado para esta solicitud
+```
+
+La ruta presentó respuestas inconsistentes e interrupciones frecuentes.
 
 ---
 
@@ -190,53 +265,55 @@ ipconfig /release
 ipconfig /renew
 ```
 
-También se ejecutó:
+Posteriormente:
 
 ```cmd
 netsh winsock reset
+
 netsh int ip reset
 ```
 
-Posteriormente se reinició el equipo.
+Finalmente se reinició el equipo.
 
 ### Resultado
 
-La falla continuó presentándose.
+Las acciones locales no resolvieron el problema.
+
+La pérdida de paquetes continuó presentándose.
 
 ---
 
-## Diagnóstico
+## Diagnóstico final
 
-Los resultados indicaron que:
+Con base en las evidencias recopiladas se concluyó que:
 
 - La configuración IP era correcta.
 - El problema afectaba múltiples dispositivos.
 - Existía pérdida severa de paquetes hacia el gateway local.
-- La falla ocurría antes de salir a Internet.
-- Las acciones locales no resolvieron la incidencia.
-
-Debido a lo anterior, se concluyó que el problema probablemente se encontraba fuera del equipo del usuario.
+- El problema ocurría antes de salir a Internet.
+- Las acciones locales no resolvían la incidencia.
+- El origen de la falla se encontraba fuera del equipo del usuario.
 
 ---
 
 ## Escalamiento
 
-El caso fue comunicado al responsable del servicio de Internet para revisión de la infraestructura.
-
-Se recomendó inspeccionar:
+Debido a que la infraestructura principal de red no estaba bajo control del usuario, el caso fue reportado al responsable del servicio para revisión de:
 
 - Router principal.
 - Cableado.
 - Equipos intermedios.
-- Estado físico de la instalación.
+- Infraestructura física de la conexión.
 
 ---
 
 ## Resolución
 
-Un técnico revisó la instalación y detectó una interferencia relacionada con el cableado de la conexión.
+Posteriormente un técnico realizó una revisión de la instalación.
 
-Después de corregir la incidencia, el servicio volvió a funcionar con normalidad.
+Según la información proporcionada por el técnico que atendió el incidente, se identificó una interferencia relacionada con el cableado de la conexión.
+
+Después de corregir la incidencia, el servicio volvió a funcionar normalmente.
 
 ---
 
@@ -248,32 +325,43 @@ Se repitió la prueba:
 ping -t 8.8.8.8
 ```
 
-Evidencias:
+Resultado:
 
-![Internet después 1](img/09-ping-internet-despues-correccion-parte-1.png)
+```text
+Paquetes: enviados = 499
+recibidos = 499
+perdidos = 0
 
-![Internet después 2](img/09-ping-internet-despues-correccion-parte-2.png)
+0% de pérdida
+```
 
-![Internet después 3](img/09-ping-internet-despues-correccion-parte-3.png)
+Latencias observadas:
 
-![Internet después 4](img/09-ping-internet-despues-correccion-parte-4.png)
+```text
+74 ms
+79 ms
+82 ms
+90 ms
+110 ms
+```
 
-Resultado final:
+No se observaron:
 
-- 499 paquetes enviados.
-- 499 recibidos.
-- 0 perdidos.
-- 0% de pérdida de paquetes.
+- Tiempos de espera agotados.
+- Errores de transmisión.
+- Pérdida de paquetes.
 
 ---
 
 ## Conclusión
 
-La investigación permitió determinar que la falla no estaba relacionada con la configuración del equipo ni con un único dispositivo.
+Se diagnosticó correctamente una falla de conectividad que inicialmente se manifestaba como lentitud, desconexiones y errores DNS.
 
-Las pruebas mostraron pérdida severa de paquetes hacia el gateway local y posteriormente hacia Internet, lo que permitió justificar el escalamiento del caso.
+Las pruebas permitieron demostrar que el problema no estaba relacionado con la configuración del equipo, sino con la infraestructura de red.
 
-Tras la intervención de un técnico en la infraestructura física de la conexión, el servicio fue restablecido y las pruebas posteriores confirmaron una conectividad estable sin pérdida de paquetes.
+La evidencia recopilada justificó el escalamiento del caso y permitió confirmar posteriormente la solución implementada por el técnico responsable.
+
+La validación final mostró una conectividad estable con 0% de pérdida de paquetes, confirmando la resolución exitosa del incidente.
 
 ---
 
@@ -281,12 +369,20 @@ Tras la intervención de un técnico en la infraestructura física de la conexi�
 
 - Atención inicial de incidencias.
 - Recopilación de información del usuario.
-- Diagnóstico básico de redes.
+- Diagnóstico de conectividad.
 - Uso de ipconfig.
 - Uso de ping.
 - Uso de tracert.
 - Análisis de pérdida de paquetes.
-- Identificación de problemas fuera del equipo local.
+- Identificación de causa raíz.
 - Escalamiento justificado.
 - Validación posterior a la corrección.
 - Documentación técnica.
+- Troubleshooting de redes.
+- Comunicación con usuarios.
+
+---
+
+## Nota de privacidad
+
+La información sensible de la red utilizada durante las pruebas fue anonimizada antes de la publicación de este laboratorio. Se ocultaron direcciones IP, parámetros de direccionamiento y otros identificadores que no aportan valor al análisis técnico del caso.
