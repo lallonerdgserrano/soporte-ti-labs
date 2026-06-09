@@ -44,6 +44,8 @@ Demostrar habilidades prácticas en soporte TI mediante laboratorios documentado
 - [Caso Help Desk: navegador sin acceso por proxy mal configurado](caso-helpdesk-proxy/) ✅
 - [Caso Help Desk en Jira Service Management: usuario sin acceso a Internet](helpdesk-jira-sin-internet/) ✅
 - [Caso Help Desk: Internet intermitente con diagnóstico y escalamiento](caso-helpdesk-internet-intermitente/) ✅
+- [Caso Help Desk: Priorización de tickets por impacto, urgencia y SLA](priorizacion-tickets-sla/) ✅
+
 
 ---
 
