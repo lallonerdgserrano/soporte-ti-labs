@@ -2,39 +2,40 @@
 
 ## Objetivo
 
-Documentar un caso de soporte técnico en Windows donde un equipo presenta lentitud al iniciar sesión, consumo irregular de CPU y carga de programas innecesarios al inicio.
+Documentar un caso de soporte técnico donde un equipo Windows presenta lentitud al iniciar sesión y consumo irregular de recursos.
 
-El objetivo del laboratorio es practicar un flujo realista de Help Desk: revisión inicial, diagnóstico por interfaz gráfica, corrección controlada, validación de rendimiento y documentación del caso.
-
-## Escenario
-
-Un usuario reporta que su equipo tarda en quedar listo después de iniciar sesión. Para el laboratorio se creó una condición controlada agregando programas al inicio de Windows, con el fin de simular un escenario común de lentitud al arrancar sesión.
-
-Durante la revisión también se detectó consumo irregular de CPU, advertencias en Windows Update, archivos temporales acumulados y archivos dañados del sistema reparados mediante SFC.
-
-El caso se trabajó en una máquina virtual con Windows 10, usando herramientas integradas del sistema operativo.
+El objetivo fue realizar un diagnóstico ordenado, aplicar acciones correctivas seguras y validar la mejora del rendimiento usando herramientas integradas de Windows.
 
 ## Entorno utilizado
 
-* Sistema operativo: Windows 10
-* Entorno: Máquina virtual
-* Herramientas:
+* Windows 10
+* Máquina virtual
+* Administrador de tareas
+* Configuración de Windows
+* Seguridad de Windows / Microsoft Defender
+* Símbolo del sistema como administrador
 
-  * Administrador de tareas
-  * Configuración de Windows
-  * Windows Update
-  * Seguridad de Windows / Microsoft Defender
-  * Solucionador de problemas de Windows
-  * Símbolo del sistema como administrador
-  * Comando `sfc /scannow`
+## Descripción del caso
+
+El equipo presentaba lentitud después de iniciar sesión. El usuario reportaba que el sistema tardaba en quedar listo para trabajar y que el rendimiento era inestable durante los primeros minutos de uso.
+
+Durante la revisión se identificaron programas configurados para abrirse al inicio de Windows, consumo elevado de CPU, archivos temporales acumulados y archivos dañados del sistema.
+
+## Impacto
+
+La lentitud afectaba el inicio de sesión y el tiempo necesario para que el equipo quedara operativo.
+
+**Prioridad asignada:** Media
+**Tipo de caso:** Incidente de rendimiento en equipo Windows
+**Estado final:** Resuelto
 
 ## Procedimiento realizado
 
 ### 1. Revisión de programas configurados al inicio
 
-Se revisó la carpeta de inicio de Windows y se identificaron programas configurados para abrirse automáticamente al iniciar sesión.
+Se revisaron los programas configurados para abrirse automáticamente al iniciar sesión.
 
-Esta condición fue creada de forma controlada para simular un caso realista donde el usuario tiene varias aplicaciones cargando al arranque.
+Se identificaron varias aplicaciones cargando al arranque, lo cual podía aumentar el tiempo de inicio y afectar el rendimiento inicial del equipo.
 
 **Evidencia:**
 
@@ -42,11 +43,11 @@ Esta condición fue creada de forma controlada para simular un caso realista don
 
 ---
 
-### 2. Deshabilitación de programas no esenciales
+### 2. Corrección de aplicaciones de inicio
 
-Se abrió el Administrador de tareas y se revisó la pestaña **Inicio**.
+Se revisó la pestaña **Inicio** del Administrador de tareas y se deshabilitaron aplicaciones no esenciales.
 
-Se deshabilitaron aplicaciones innecesarias del inicio para reducir la carga al iniciar sesión. No se deshabilitaron componentes importantes relacionados con la máquina virtual ni con la seguridad del sistema, como VMware Tools, VBoxTray o Windows Security.
+La acción se realizó sin desactivar componentes importantes del sistema, seguridad o herramientas necesarias para la máquina virtual.
 
 **Evidencia:**
 
@@ -54,11 +55,11 @@ Se deshabilitaron aplicaciones innecesarias del inicio para reducir la carga al 
 
 ---
 
-### 3. Revisión inicial de rendimiento
+### 3. Validación inicial de rendimiento
 
-Después de reiniciar el equipo, se revisó el rendimiento desde el Administrador de tareas.
+Después de aplicar la primera corrección, se revisó el rendimiento del equipo desde el Administrador de tareas.
 
-Se observó consumo elevado de CPU, llegando al 100%, con memoria y disco en uso moderado.
+El CPU seguía presentando consumo elevado, llegando a niveles altos durante la revisión.
 
 **Evidencia:**
 
@@ -68,9 +69,9 @@ Se observó consumo elevado de CPU, llegando al 100%, con memoria y disco en uso
 
 ### 4. Identificación de proceso con alto consumo
 
-Se revisó la pestaña **Procesos** ordenando por consumo de CPU.
+Se revisaron los procesos ordenados por consumo de CPU.
 
-Se identificó que **Noticias e intereses** estaba generando un consumo alto de CPU y disco, por lo que se desactivó desde la barra de tareas.
+Se identificó que **Noticias e intereses** estaba generando consumo alto de recursos, por lo que se desactivó desde la barra de tareas.
 
 **Evidencia:**
 
@@ -80,9 +81,9 @@ Se identificó que **Noticias e intereses** estaba generando un consumo alto de 
 
 ### 5. Validación después de desactivar Noticias e intereses
 
-Después de desactivar Noticias e intereses, se revisó nuevamente el Administrador de tareas.
+Después de desactivar **Noticias e intereses**, se revisó nuevamente el consumo de recursos.
 
-El proceso ya no aparecía consumiendo recursos, pero el CPU seguía presentando variaciones por servicios del sistema.
+El proceso dejó de aparecer como carga principal, pero el CPU continuó con comportamiento irregular asociado a procesos del sistema.
 
 **Evidencia:**
 
@@ -90,11 +91,11 @@ El proceso ya no aparecía consumiendo recursos, pero el CPU seguía presentando
 
 ---
 
-### 6. Revisión de CPU inestable
+### 6. Seguimiento del consumo de CPU
 
-Se continuó monitoreando el consumo de CPU y se observó comportamiento irregular: el uso subía y bajaba constantemente.
+Se continuó monitoreando el equipo para confirmar si la lentitud se mantenía.
 
-Los procesos principales correspondían a servicios del sistema, por lo que no se cerraron manualmente para evitar afectar Windows.
+El CPU seguía subiendo y bajando de forma irregular. Los procesos principales correspondían a servicios del sistema, por lo que no se cerraron manualmente para evitar afectar la estabilidad de Windows.
 
 **Evidencia:**
 
@@ -102,123 +103,25 @@ Los procesos principales correspondían a servicios del sistema, por lo que no s
 
 ---
 
-### 7. Revisión de Windows Update
+### 7. Revisión de recursos y almacenamiento
 
-Se revisó Windows Update y se encontró una advertencia indicando que faltaban correcciones importantes de seguridad y calidad.
+Se revisó el uso de CPU, memoria y disco para descartar saturación general del equipo.
 
-Inicialmente apareció un error relacionado con el proceso de actualización.
-
-**Evidencia:**
-
-![Error de Windows Update](img/07-windows-update-error-80240009.png)
-
----
-
-### 8. Reintento de actualización
-
-Se intentó buscar actualizaciones nuevamente desde la interfaz gráfica. Windows seguía mostrando que no estaba todo actualizado.
-
-**Evidencia:**
-
-![Windows Update no actualizado](img/08-windows-update-no-actualizado.png)
-
----
-
-### 9. Validación de intentos fallidos
-
-Después de varios intentos, Windows Update seguía mostrando el mismo estado sin completar la actualización.
-
-Se decidió no seguir repitiendo la misma acción y continuar con validaciones adicionales.
-
-**Evidencia:**
-
-![Intentos fallidos de Windows Update](img/09-windows-update-intentos-fallidos.png)
-
----
-
-### 10. Revisión de CPU, memoria y disco
-
-Se revisó nuevamente el rendimiento del equipo.
-
-El CPU seguía presentando actividad, pero la memoria no estaba completamente saturada. La máquina virtual tenía 2 GB de RAM asignados y 2 procesadores virtuales, lo cual puede influir en el rendimiento durante tareas de actualización o reparación del sistema.
+También se revisó el almacenamiento disponible. El disco tenía espacio libre suficiente, por lo que la lentitud no parecía estar causada por falta crítica de espacio.
 
 **Evidencia:**
 
 ![Rendimiento CPU y memoria](img/10-rendimiento-cpu-memoria.png)
 
----
-
-### 11. Revisión de almacenamiento disponible
-
-Se revisó el almacenamiento del disco local.
-
-El equipo tenía espacio disponible suficiente, por lo que la lentitud no parecía estar causada por falta crítica de espacio.
-
-**Evidencia:**
-
 ![Almacenamiento disponible](img/11-almacenamiento-disponible.png)
-
----
-
-### 12. Revisión de archivos temporales
-
-Se revisó la sección de archivos temporales y se detectó una cantidad considerable de archivos temporales y archivos de instalaciones anteriores de Windows.
-
-No se eliminaron archivos críticos sin validación, especialmente porque el sistema todavía presentaba inconsistencias con Windows Update.
-
-**Evidencia:**
 
 ![Archivos temporales detectados](img/12-archivos-temporales-detectados.png)
 
-![Detalle de archivos temporales 1](img/13-detalle-archivos-temporales-1.png)
-
-![Detalle de archivos temporales 2](img/13-detalle-archivos-temporales-2.png)
-
-![Detalle de archivos temporales 3](img/13-detalle-archivos-temporales-3.png)
-
 ---
 
-### 13. Ejecución del solucionador de problemas
+### 8. Validación de seguridad básica
 
-Se ejecutó el solucionador de problemas de Windows Update desde la interfaz gráfica.
-
-El solucionador no pudo identificar el problema.
-
-**Evidencia:**
-
-![Solucionador no identifica problema](img/14-solucionador-no-identifica-problema.png)
-
----
-
-### 14. Revisión del historial de actualizaciones
-
-Se revisó el historial de actualizaciones para identificar si existía una actualización específica fallida.
-
-Las actualizaciones visibles aparecían como instaladas correctamente, por lo que se documentó una inconsistencia entre el estado principal de Windows Update y el historial.
-
-**Evidencia:**
-
-![Historial de actualizaciones instaladas 1](img/15-historial-actualizaciones-instaladas-1.png)
-
-![Historial de actualizaciones instaladas 2](img/15-historial-actualizaciones-instaladas-2.png)
-
----
-
-### 15. Revisión de actualizaciones opcionales
-
-Se revisaron las actualizaciones opcionales.
-
-Se encontró un controlador opcional de Broadcom, pero no se instaló porque no estaba relacionado directamente con la lentitud ni con el síntoma principal reportado.
-
-**Evidencia:**
-
-![Actualizaciones opcionales](img/16-actualizaciones-opcionales-driver-broadcom.png)
-
----
-
-### 16. Examen rápido con Windows Defender
-
-Se ejecutó un examen rápido con Microsoft Defender para descartar amenazas básicas como posible causa de lentitud.
+Se ejecutó un examen rápido con Microsoft Defender para descartar amenazas comunes como posible causa de lentitud.
 
 El resultado indicó que no se encontraron amenazas.
 
@@ -228,15 +131,17 @@ El resultado indicó que no se encontraron amenazas.
 
 ---
 
-### 17. Revisión y reparación de archivos del sistema
+### 9. Revisión y reparación de archivos del sistema
 
-Se ejecutó el comando `sfc /scannow` desde el Símbolo del sistema como administrador.
+Se ejecutó `sfc /scannow` desde el Símbolo del sistema como administrador para validar la integridad de archivos del sistema.
 
-El resultado indicó que Protección de recursos de Windows encontró archivos dañados y los reparó correctamente.
+El resultado indicó que Windows encontró archivos dañados y los reparó correctamente.
 
-Comando utilizado:
+**Comando utilizado:**
 
-`sfc /scannow`
+```cmd
+sfc /scannow
+```
 
 **Evidencia:**
 
@@ -244,11 +149,11 @@ Comando utilizado:
 
 ---
 
-### 18. Validación final
+### 10. Validación final
 
 Después de reiniciar el equipo, se revisó nuevamente el Administrador de tareas.
 
-El consumo de CPU bajó de forma notable en comparación con las mediciones anteriores, mostrando una mejora en el rendimiento general.
+El consumo de CPU bajó de forma notable en comparación con las revisiones anteriores, mostrando una mejora en el rendimiento general del equipo.
 
 **Evidencia:**
 
@@ -256,47 +161,77 @@ El consumo de CPU bajó de forma notable en comparación con las mediciones ante
 
 ## Resultado
 
-Se logró mejorar el rendimiento del equipo después de:
+El equipo mejoró después de aplicar las acciones correctivas.
 
-* Deshabilitar aplicaciones innecesarias al inicio.
-* Desactivar Noticias e intereses por consumo alto de recursos.
-* Verificar el estado de CPU, memoria, disco y almacenamiento.
-* Revisar Windows Update e identificar inconsistencias.
-* Validar que no había amenazas activas con Windows Defender.
-* Ejecutar `sfc /scannow` para reparar archivos dañados del sistema.
-* Reiniciar y validar mejora en el consumo de CPU.
+Se redujo la carga al inicio, se eliminó un proceso innecesario con alto consumo, se descartaron amenazas activas y se repararon archivos dañados del sistema.
 
-El equipo quedó en mejor estado operativo después de la intervención.
+La validación final mostró un consumo de CPU más estable y menor que el observado durante el diagnóstico inicial.
 
-## Estado del caso
+## Resumen técnico del ticket
 
-Resuelto con observación.
+**Problema reportado:**
+Equipo lento después de iniciar sesión.
 
-El rendimiento mejoró después de las acciones aplicadas, pero Windows Update mostró una inconsistencia que debe mantenerse en observación si vuelve a presentar errores.
+**Diagnóstico:**
+Se identificaron programas cargando al inicio, consumo elevado de CPU, actividad irregular de procesos del sistema y archivos dañados del sistema.
 
-## Nota técnica
+**Acciones aplicadas:**
+Se deshabilitaron programas innecesarios del inicio, se desactivó Noticias e intereses, se revisó almacenamiento, se ejecutó examen rápido con Microsoft Defender y se repararon archivos del sistema con `sfc /scannow`.
 
-No se cerraron procesos críticos del sistema manualmente, ya que varios consumos altos correspondían a servicios internos de Windows. En un entorno real, cerrar servicios del sistema sin validar la causa podría generar inestabilidad o pérdida de información.
+**Resultado:**
+El equipo quedó operativo con mejor rendimiento después del reinicio y la validación final.
 
-También se evitó eliminar archivos de instalaciones anteriores de Windows sin una validación previa, ya que podrían ser necesarios para recuperación o reversión del sistema.
+**Estado:**
+Resuelto.
 
-## Valor laboral del laboratorio
+## Evidencia complementaria
 
-Este laboratorio demuestra habilidades prácticas de Soporte TI / Help Desk, incluyendo:
+Las siguientes evidencias se conservaron como parte del diagnóstico, pero no se toman como causa principal del caso.
+
+<details>
+<summary>Ver evidencias complementarias</summary>
+
+### Revisión de Windows Update
+
+Durante el diagnóstico también se revisó Windows Update porque algunos servicios del sistema podían estar generando actividad en segundo plano.
+
+![Error de Windows Update](img/07-windows-update-error-80240009.png)
+
+![Windows Update no actualizado](img/08-windows-update-no-actualizado.png)
+
+![Intentos fallidos de Windows Update](img/09-windows-update-intentos-fallidos.png)
+
+![Solucionador no identifica problema](img/14-solucionador-no-identifica-problema.png)
+
+![Historial de actualizaciones instaladas 1](img/15-historial-actualizaciones-instaladas-1.png)
+
+![Historial de actualizaciones instaladas 2](img/15-historial-actualizaciones-instaladas-2.png)
+
+![Actualizaciones opcionales](img/16-actualizaciones-opcionales-driver-broadcom.png)
+
+### Detalle de archivos temporales
+
+![Detalle de archivos temporales 1](img/13-detalle-archivos-temporales-1.png)
+
+![Detalle de archivos temporales 2](img/13-detalle-archivos-temporales-2.png)
+
+![Detalle de archivos temporales 3](img/13-detalle-archivos-temporales-3.png)
+
+</details>
+
+## Competencias demostradas
 
 * Diagnóstico de lentitud en Windows.
+* Revisión de programas de inicio.
 * Uso del Administrador de tareas.
-* Revisión de aplicaciones de inicio.
-* Validación de consumo de CPU, memoria y disco.
-* Revisión de almacenamiento y archivos temporales.
-* Uso básico de Windows Defender.
-* Revisión de Windows Update.
-* Ejecución de reparación básica con `sfc /scannow`.
-* Documentación técnica de hallazgos, acciones y validación final.
+* Identificación de procesos con alto consumo.
+* Validación de CPU, memoria, disco y almacenamiento.
+* Revisión básica de seguridad con Microsoft Defender.
+* Reparación de archivos del sistema con `sfc /scannow`.
+* Documentación técnica orientada a Soporte TI / Help Desk.
 
 ## Conclusión
 
-El caso permitió practicar un flujo realista de soporte técnico: recibir un reporte de lentitud, revisar causas probables, aplicar correcciones seguras, evitar acciones riesgosas sobre procesos del sistema y validar el resultado final con evidencia.
+Este caso demuestra un flujo realista de soporte técnico: recibir un reporte de lentitud, revisar causas probables, aplicar correcciones seguras y validar el resultado final con evidencia.
 
-La mejora del rendimiento después de la reparación de archivos del sistema y la reducción de aplicaciones al inicio confirma la importancia de combinar diagnóstico visual, herramientas integradas de Windows y documentación clara del proceso.
-
+La mejora observada después del reinicio muestra que las acciones aplicadas ayudaron a dejar el equipo en mejor estado operativo.
