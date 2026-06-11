@@ -37,15 +37,16 @@ Demostrar habilidades prácticas en soporte TI mediante laboratorios documentado
 
 ## Laboratorios publicados
 
-- [Diagnóstico básico de conectividad](diagnostico-basico-conectividad/) ✅
-- [Corrección de fallo DNS en Windows](verificacion-dns/) ✅
-- [Revisión de configuración IP](revision-configuracion-ip/) ✅
-- [Prueba de conectividad entre equipos](conectividad-entre-equipos/) ✅
-- [Caso Help Desk: navegador sin acceso por proxy mal configurado](caso-helpdesk-proxy/) ✅
-- [Caso Help Desk en Jira Service Management: usuario sin acceso a Internet](helpdesk-jira-sin-internet/) ✅
-- [Caso Help Desk: Internet intermitente con diagnóstico y escalamiento](caso-helpdesk-internet-intermitente/) ✅
-- [Caso Help Desk: Priorización de tickets por impacto, urgencia y SLA](priorizacion-tickets-sla/) ✅
-- [Caso Help Desk: Equipo lento al iniciar sesión en Windows](equipo-lento-inicio-windows/) ✅
+- [Diagnóstico básico de conectividad](diagnostico-basico-conectividad/) 
+- [Corrección de fallo DNS en Windows](verificacion-dns/) 
+- [Revisión de configuración IP](revision-configuracion-ip/) 
+- [Prueba de conectividad entre equipos](conectividad-entre-equipos/) 
+- [Caso Help Desk: navegador sin acceso por proxy mal configurado](caso-helpdesk-proxy/) 
+- [Caso Help Desk en Jira Service Management: usuario sin acceso a Internet](helpdesk-jira-sin-internet/) 
+- [Caso Help Desk: Internet intermitente con diagnóstico y escalamiento](caso-helpdesk-internet-intermitente/) 
+- [Caso Help Desk: Priorización de tickets por impacto, urgencia y SLA](priorizacion-tickets-sla/) 
+- [Caso Help Desk: Equipo lento al iniciar sesión en Windows](equipo-lento-inicio-windows/) 
+- [Caso Help Desk: Usuario sin acceso a carpeta compartida en Windows](caso-helpdesk-carpeta-compartida-sin-acceso)
 
 
 
